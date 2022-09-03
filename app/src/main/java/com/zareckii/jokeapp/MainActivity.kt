@@ -3,9 +3,7 @@ package com.zareckii.jokeapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.actionButton)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val textView = findViewById<TextView>(R.id.textView)
+        val checkBox = findViewById<CheckBox>(R.id.checkbox)
+        val changeButton = findViewById<ImageButton>(R.id.iconButton)
         progressBar.visibility = View.INVISIBLE
 
         button.setOnClickListener {
@@ -28,11 +28,23 @@ class MainActivity : AppCompatActivity() {
             viewModel.getJoke()
         }
 
-        viewModel.init(object : ViewModel.TextCallback {
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.chooseFavorite(isChecked)
+        }
+
+        changeButton.setOnClickListener {
+            viewModel.changeJokeStatus()
+        }
+
+        viewModel.init(object : ViewModel.DataCallback {
             override fun provideText(text: String) = runOnUiThread {
                 button.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
                 textView.text = text
+            }
+
+            override fun provideIconRes(id: Int) = runOnUiThread {
+                changeButton.setImageResource(id)
             }
         })
     }

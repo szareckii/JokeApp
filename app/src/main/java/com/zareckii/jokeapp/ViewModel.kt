@@ -1,15 +1,22 @@
 package com.zareckii.jokeapp
 
+import androidx.annotation.DrawableRes
+
 class ViewModel(private val model: Model) {
 
-    private var callback: TextCallback? = null
+    private var dataCallback: DataCallback? = null
 
-    fun init(callback: TextCallback) {
-        this.callback = callback
-        model.init(object : ResultCallback {
-            override fun provideSuccess(data: Joke) = callback.provideText(data.getJokeUi())
-            override fun provideError(error: JokeFailure) = callback.provideText(error.getMessage())
-        })
+    private val jokeCallback = object : JokeCallback {
+        override fun provide(joke: Joke) {
+            dataCallback?.let {
+                joke.map(it)
+            }
+        }
+    }
+
+    fun init(callback: DataCallback) {
+        this.dataCallback = callback
+        model.init(jokeCallback)
     }
 
     fun getJoke() {
@@ -17,12 +24,22 @@ class ViewModel(private val model: Model) {
     }
 
     fun clear() {
-        callback = null
+        dataCallback = null
         model.clear()
     }
 
-    interface TextCallback {
+    fun chooseFavorite(cached: Boolean) {
+        model.chooseDataSource(cached)
+    }
+
+    fun changeJokeStatus() {
+        model.changeJokeStatus(jokeCallback)
+    }
+
+    interface DataCallback {
 
         fun provideText(text: String)
+
+        fun provideIconRes(@DrawableRes id: Int)
     }
 }

@@ -1,6 +1,28 @@
 package com.zareckii.jokeapp
 
-class Joke(private val text: String, private val punchline: String) {
+import androidx.annotation.DrawableRes
 
-    fun getJokeUi() = "$text\n$punchline"
+class BaseJoke(text: String, punchline: String) : Joke(text, punchline) {
+    override fun getIconResId() = R.drawable.ic_baseline_favorite_border_24
+}
+
+class FavoriteJoke(text: String, punchline: String) : Joke(text, punchline) {
+    override fun getIconResId() = R.drawable.ic_baseline_favorite_24
+}
+
+class FailedJoke(text: String) : Joke(text, "") {
+    override fun getIconResId() = 0
+}
+
+abstract class Joke(private val text: String, private val punchline: String) {
+
+    private fun getJokeUi() = "$text\n$punchline"
+
+    @DrawableRes
+    protected abstract fun getIconResId() :Int
+
+    fun map(callback: ViewModel.DataCallback) = callback.run {
+        provideText(getJokeUi())
+        provideIconRes(getIconResId())
+    }
 }
