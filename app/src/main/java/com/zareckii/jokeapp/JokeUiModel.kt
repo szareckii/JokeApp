@@ -2,19 +2,19 @@ package com.zareckii.jokeapp
 
 import androidx.annotation.DrawableRes
 
-class BaseJoke(text: String, punchline: String) : Joke(text, punchline) {
+class BaseJokeUiModel(text: String, punchline: String) : JokeUiModel(text, punchline) {
     override fun getIconResId() = R.drawable.ic_baseline_favorite_border_24
 }
 
-class FavoriteJoke(text: String, punchline: String) : Joke(text, punchline) {
+class FavoriteJokeUiModel(text: String, punchline: String) : JokeUiModel(text, punchline) {
     override fun getIconResId() = R.drawable.ic_baseline_favorite_24
 }
 
-class FailedJoke(text: String) : Joke(text, "") {
+class FailedJokeUiModel(text: String) : JokeUiModel(text, "") {
     override fun getIconResId() = 0
 }
 
-abstract class Joke(private val text: String, private val punchline: String) {
+abstract class JokeUiModel(private val text: String, private val punchline: String) {
 
     private fun getJokeUi() = "$text\n$punchline"
 

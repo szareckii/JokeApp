@@ -6,9 +6,7 @@ interface CloudDataSource {
 }
 
 interface JokeCloudCallback {
-
-//    fun provide(joke: JokeServerModel)
-    fun provide(joke: JokeServerModel)
+    fun provide(joke: Joke)
     fun fail(error: ErrorType)
 }
 

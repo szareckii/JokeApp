@@ -4,7 +4,7 @@ import android.util.Log
 
 class TestCacheDataSource : CacheDataSource {
 
-    private val list = ArrayList<Pair<Int, JokeServerModel>>()
+    private val list = ArrayList<Pair<Int, Joke>>()
 
     override fun getJoke(jokeCachedCallback: JokeCachedCallback) {
         if (list.isEmpty())
@@ -13,7 +13,7 @@ class TestCacheDataSource : CacheDataSource {
             jokeCachedCallback.provide(list.random().second)
     }
 
-    override fun addOrRemove(id: Int, jokeServerModel: JokeServerModel): Joke {
+    override fun addOrRemove(id: Int,  joke: Joke): JokeUiModel {
         Log.e("stas", "list = $list")
 
         val found = list.find { it.first == id }
@@ -22,8 +22,8 @@ class TestCacheDataSource : CacheDataSource {
             list.remove(found)
             joke
         } else {
-            list.add(Pair(id, jokeServerModel))
-            jokeServerModel.toFavoriteJoke()
+            list.add(Pair(id, joke))
+            joke.toFavoriteJoke()
         }
     }
 }

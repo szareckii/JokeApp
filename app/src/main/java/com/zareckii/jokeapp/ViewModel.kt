@@ -1,15 +1,16 @@
 package com.zareckii.jokeapp
 
 import androidx.annotation.DrawableRes
+import androidx.lifecycle.ViewModel
 
-class ViewModel(private val model: Model) {
+class ViewModel(private val model: Model) : ViewModel() {
 
     private var dataCallback: DataCallback? = null
 
     private val jokeCallback = object : JokeCallback {
-        override fun provide(joke: Joke) {
+        override fun provide(jokeUiModel: JokeUiModel) {
             dataCallback?.let {
-                joke.map(it)
+                jokeUiModel.map(it)
             }
         }
     }

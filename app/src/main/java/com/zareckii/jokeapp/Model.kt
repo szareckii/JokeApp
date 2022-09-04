@@ -16,5 +16,5 @@ interface Model {
 
 interface JokeCallback {
 
-    fun provide(joke: Joke)
+    fun provide(jokeUiModel: JokeUiModel)
 }
