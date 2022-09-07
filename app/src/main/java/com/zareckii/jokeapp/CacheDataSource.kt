@@ -1,11 +1,6 @@
 package com.zareckii.jokeapp
 
 interface CacheDataSource {
-    fun getJoke(jokeCachedCallback: JokeCachedCallback)
-    fun addOrRemove(id: Int, joke: Joke) : JokeUiModel
-}
-
-interface JokeCachedCallback {
-    fun provide(joke: Joke)
-    fun fail()
+    suspend fun getJoke(): Result<Joke, Unit>
+    suspend fun addOrRemove(id: Int, joke: Joke) : JokeUiModel
 }

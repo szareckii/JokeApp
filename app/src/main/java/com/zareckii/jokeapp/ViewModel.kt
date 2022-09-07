@@ -2,26 +2,24 @@ package com.zareckii.jokeapp
 
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class ViewModel(private val model: Model) : ViewModel() {
 
     private var dataCallback: DataCallback? = null
 
-    private val jokeCallback = object : JokeCallback {
-        override fun provide(jokeUiModel: JokeUiModel) {
-            dataCallback?.let {
-                jokeUiModel.map(it)
-            }
-        }
-    }
-
     fun init(callback: DataCallback) {
         this.dataCallback = callback
-        model.init(jokeCallback)
     }
 
     fun getJoke() {
-        model.getJoke()
+        viewModelScope.launch {
+            val uiModel = model.getJoke()
+            dataCallback?.let {
+                uiModel.map(it)
+            }
+        }
     }
 
     fun clear() {
@@ -33,8 +31,11 @@ class ViewModel(private val model: Model) : ViewModel() {
         model.chooseDataSource(cached)
     }
 
-    fun changeJokeStatus() {
-        model.changeJokeStatus(jokeCallback)
+    fun changeJokeStatus() = viewModelScope.launch {
+        val uiModel = model.changeJokeStatus()
+        dataCallback?.let {
+            uiModel?.map(it)
+        }
     }
 
     interface DataCallback {

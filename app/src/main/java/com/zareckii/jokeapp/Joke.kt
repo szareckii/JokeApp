@@ -6,7 +6,7 @@ class Joke(
     private val text: String? = "",
     private val punchline: String? = "",
 ) {
-    fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
+    suspend fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
     fun toBaseJoke() = BaseJokeUiModel(text?: "", punchline?: "")
     fun toFavoriteJoke() = FavoriteJokeUiModel(text?: "", punchline?: "")
     fun toJokeRealm(): JokeRealm {

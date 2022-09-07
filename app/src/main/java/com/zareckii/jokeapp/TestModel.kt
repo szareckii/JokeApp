@@ -1,5 +1,6 @@
 package com.zareckii.jokeapp
 
+/*
 class TestModel(resourceManager: ResourceManager) : Model {
 
     private var callback: JokeCallback? = null
@@ -32,3 +33,4 @@ class TestModel(resourceManager: ResourceManager) : Model {
 
     override fun chooseDataSource(favorites: Boolean) {}
 }
+*/

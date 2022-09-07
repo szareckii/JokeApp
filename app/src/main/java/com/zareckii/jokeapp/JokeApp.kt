@@ -18,6 +18,7 @@ class JokeApp : Application() {
 
         Realm.init(this)
 
+        /*
         val configuration = RealmConfiguration.Builder()
 //            .name("todo.db")
 //            .deleteRealmIfMigrationNeeded()
@@ -27,7 +28,7 @@ class JokeApp : Application() {
             .build()
 
         Realm.setDefaultConfiguration(configuration)
-
+*/
         fun client() =  OkHttpClient.Builder()
             .callTimeout(30, TimeUnit.SECONDS)
             .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.HEADERS })
@@ -45,7 +46,7 @@ class JokeApp : Application() {
             BaseModel(
 //                TestCacheDataSource(),
 //                TestCloudDataSource(),
-                BaseCachedDataSource(Realm.getDefaultInstance()),
+                BaseCachedDataSource(BaseRealmProvider()),
                 BaseCloudDataSource(retrofit.create(JokeService::class.java)),
                 BaseResourceManager(this)
             )

@@ -1,20 +1,7 @@
 package com.zareckii.jokeapp
 
 interface Model {
-
-    fun getJoke()
-
-    fun init(callback: JokeCallback)
-
-    fun clear()
-
-    fun changeJokeStatus(jokeCallback: JokeCallback)
-
+    suspend fun getJoke() : JokeUiModel
+    suspend fun changeJokeStatus(): JokeUiModel?
     fun chooseDataSource(cached: Boolean)
-
-}
-
-interface JokeCallback {
-
-    fun provide(jokeUiModel: JokeUiModel)
 }

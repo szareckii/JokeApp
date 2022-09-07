@@ -1,8 +1,9 @@
 package com.zareckii.jokeapp
 
+/*
 class TestCloudDataSource : CloudDataSource {
     private var count = 0
-    override fun getJoke(callback: JokeCloudCallback) {
+    override suspend fun getJoke(callback: JokeCloudCallback) {
         val joke = Joke(
             count,
             "testType$count",
@@ -13,3 +14,4 @@ class TestCloudDataSource : CloudDataSource {
         count++
     }
 }
+*/

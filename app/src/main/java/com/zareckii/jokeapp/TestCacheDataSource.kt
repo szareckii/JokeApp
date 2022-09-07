@@ -1,7 +1,7 @@
 package com.zareckii.jokeapp
 
 import android.util.Log
-
+/*
 class TestCacheDataSource : CacheDataSource {
 
     private val list = ArrayList<Pair<Int, Joke>>()
@@ -27,3 +27,4 @@ class TestCacheDataSource : CacheDataSource {
         }
     }
 }
+*/
